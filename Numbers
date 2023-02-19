@@ -1,0 +1,50 @@
+package MidExam;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.Scanner;
+import java.util.stream.Collectors;
+
+public class Numbers {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        List<Integer> numbers = Arrays.stream(scanner.nextLine().split(" ")).map(Integer::parseInt).collect(Collectors.toList());
+        String input = scanner.nextLine();
+        while (!input.equals("Finish")) {
+            String[] command = input.split(" ");
+            switch (command[0]) {
+                case "Add":
+                    numbers.add(Integer.parseInt(command[1]));
+                    break;
+                case "Remove":
+                    Integer numberToRemove = Integer.parseInt(command[1]);
+                    numbers.remove(numberToRemove);
+                    break;
+                case "Replace":
+                    int valueForReplace = Integer.parseInt(command[1]);
+                    int valueToReplaceWith = Integer.parseInt(command[2]);
+                    for (int i = 0; i < numbers.size(); i++) {
+                        if (numbers.get(i) == valueForReplace) {
+                            numbers.set(i, valueToReplaceWith);
+                            break;
+                        }
+                    }
+                    break;
+                case "Collapse":
+                    int valueToCompare = Integer.parseInt(command[1]);
+
+                    for (int i = 0; i < numbers.size(); i++) {
+                        if (valueToCompare > numbers.get(i)) {
+                            numbers.remove(numbers.get(i));
+                            i--;
+                        }
+                    }
+                    break;
+            }
+            input = scanner.nextLine();
+        }
+        for (int numbersPrint : numbers) {
+            System.out.printf("%d ", numbersPrint);
+        }
+    }
+}
