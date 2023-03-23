@@ -1,0 +1,36 @@
+package Exams;
+
+import java.util.Scanner;
+
+public class CounterStrike {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int initialEnergy = Integer.parseInt(scanner.nextLine());
+        String input = scanner.nextLine();
+        int energyLeft = initialEnergy;
+        int winCounter = 0;
+        boolean flag = false;
+        while (!input.equals("End of battle")) {
+            int energyCost = Integer.parseInt(input);
+            if (energyLeft < energyCost){
+                flag = true;
+                break;
+            }else {
+                energyLeft -= energyCost;
+                winCounter++;
+                if (winCounter % 3 == 0) {
+                    energyLeft += winCounter;
+                }
+            }
+
+            input = scanner.nextLine();
+        }
+        if (flag){
+            System.out.printf("Not enough energy! Game ends with %d won battles and %d energy",winCounter,energyLeft);
+        }else{
+            System.out.printf("Won battles: %d. Energy left: %d",winCounter,energyLeft);
+        }
+
+
+    }
+}
