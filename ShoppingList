@@ -1,0 +1,97 @@
+package Exams;
+
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.Scanner;
+import java.util.stream.Collectors;
+
+
+public class ShoppingList {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        String input = scanner.nextLine();
+        List<String> products = Arrays.stream(input.split("!")).collect(Collectors.toList());
+        String secondInput = scanner.nextLine();
+
+        while (!secondInput.equals("Go Shopping!")) {
+            String[] command = secondInput.split(" ");
+
+            switch (command[0]) {
+                case "Urgent":
+                    urgentCommand(products,secondInput);
+                    break;
+                case "Unnecessary":
+                   unnecessaryCommand(products,secondInput);
+                    break;
+                case "Correct":
+                    correctCommand(products,secondInput);
+                    break;
+                case "Rearrange":
+                    rearrangeCommand(products,secondInput);
+                    break;
+            }
+            secondInput = scanner.nextLine();
+        }
+
+        for (int i = 0; i <products.size(); i++) {
+            if (products.get(i) .equals(products.get(products.size()-1))){
+                System.out.printf("%s",products.get(i));
+            }else {
+                System.out.printf("%s, ",products.get(i));
+            }
+        }
+
+
+
+
+    }
+
+    public static void  urgentCommand(List<String> shoppingList, String secondInput) {
+
+        String[] command = secondInput.split(" ");
+        int existCounter =0;
+
+        for (int i = 0; i <shoppingList.size(); i++) {
+            if (shoppingList.get(i).equals(command[1])) {
+                existCounter ++;
+                }
+
+            }
+        if (existCounter == 0){
+            shoppingList.add(0,command[1]);
+        }
+
+    }
+    public static void unnecessaryCommand (List<String>shoppingList, String secondInput){
+        String [] command = secondInput.split(" ");
+        for (int i = 0; i <shoppingList.size(); i++) {
+            if (shoppingList.get(i).equals(command[1])){
+               shoppingList.remove(i);
+               break;
+            }
+        }
+
+    }
+    public static void correctCommand (List<String>shoppingList, String secondInput){
+        String [] command = secondInput.split(" ");
+        for (int i = 0; i <shoppingList.size(); i++) {
+            if (shoppingList.get(i).equals(command[1])){
+                shoppingList.set(i,command[2]);
+            }
+        }
+
+        }
+    public static void rearrangeCommand(List<String>shoppingList, String secondInput){
+        String [] command = secondInput.split("");
+        for (int i = 0; i <shoppingList.size(); i++) {
+            if (command[1].equals(shoppingList.get(i))){
+                shoppingList.remove(i);
+                shoppingList.add(command[1]);
+                break;
+            }
+        }
+
+    }
+
+}
