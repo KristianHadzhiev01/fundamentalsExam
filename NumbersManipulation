@@ -1,0 +1,42 @@
+package Exams;
+
+import java.util.*;
+
+public class Numbers {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int[] numbers = Arrays.stream(scanner.nextLine()
+                .split(" ")).mapToInt(Integer::parseInt).toArray();
+        double sum = 0;
+        double averageSum = 0;
+        for (int i = 0; i < numbers.length; i++) {
+            sum += numbers[i];
+        }
+        List<Integer> averageNumbers = new ArrayList<>();
+
+        averageSum = sum / numbers.length;
+        int counter = 0;
+        for (int i = 0; i < numbers.length; i++) {
+            if (numbers[i] > averageSum) {
+                averageNumbers.add(numbers[i]);
+                counter++;
+            }
+        }
+        Collections.sort(averageNumbers);
+        Collections.reverse(averageNumbers);
+
+        if (averageNumbers.size() >5){
+            for (int i = 0; i <5; i++) {
+                System.out.printf("%d ",averageNumbers.get(i));
+            }
+        }else {
+            for (int eachNumber:averageNumbers) {
+                System.out.printf("%d ",eachNumber);
+            }
+
+        }
+        if (counter == 0) {
+            System.out.println("No");
+        }
+    }
+}
