@@ -1,0 +1,29 @@
+package Exams;
+
+import java.util.Scanner;
+
+public class SoftUniReception {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int firstEmployerStudents = Integer.parseInt(scanner.nextLine());
+        int secondEmployerStudents = Integer.parseInt(scanner.nextLine());
+        int thirdEmployerStudents = Integer.parseInt(scanner.nextLine());
+        int studentCount = Integer.parseInt(scanner.nextLine());
+        int totalStudents = firstEmployerStudents + secondEmployerStudents + thirdEmployerStudents;
+        int totalStudentCount = studentCount;
+        int counterHour = 0;
+        while (totalStudentCount >=0){
+            if (totalStudentCount ==0){
+                break;
+            }
+
+            totalStudentCount = totalStudentCount - totalStudents;
+            counterHour++;
+
+            if (counterHour % 4 == 0){
+                counterHour++;
+            }
+        }
+        System.out.printf("Time needed: %dh.",counterHour);
+    }
+}
