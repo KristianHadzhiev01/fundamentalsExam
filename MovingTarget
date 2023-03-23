@@ -1,0 +1,73 @@
+package Exams;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.Scanner;
+import java.util.stream.Collectors;
+
+public class MovingTarget {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        List<Integer> targets = Arrays.stream(scanner.nextLine().split("\\s+")).map(Integer::parseInt).collect(Collectors.toList());
+        String input = scanner.nextLine();
+
+        while (!input.equals("End")) {
+            String[] command = input.split("\\s+");
+            switch (command[0]) {
+                case "Shoot":
+                    int index = Integer.parseInt(command[1]);
+                    int power = Integer.parseInt(command[2]);
+                    if (index <= targets.size() && index > 0) {
+                        int reducedIndex = targets.get(index) - power;
+                        targets.set(index, reducedIndex);
+                    }
+                    if (targets.get(index) <= 0) {
+                        targets.remove(index);
+                    }
+                    break;
+                case "Add":
+                    int addIndex = Integer.parseInt(command[1]);
+                    int element = Integer.parseInt(command[2]);
+                    if (addIndex <= targets.size() - 1 && addIndex > 0) {
+                        targets.add(addIndex, element);
+                    } else {
+                        System.out.println("Invalid placement!");
+                    }
+                    break;
+                case "Strike":
+                    int indexToStrike = Integer.parseInt(command[1]);
+                    int radiusOfOtherIndexes = Integer.parseInt(command[2]);
+                    int biggerCounter = 0;
+
+                    if (indexToStrike + radiusOfOtherIndexes <= targets.size() && indexToStrike - radiusOfOtherIndexes >= 0) {
+                        while (biggerCounter <= radiusOfOtherIndexes) {
+                            targets.remove(indexToStrike);
+                            biggerCounter++;
+                        }
+                        int smallerCounter = 0;
+                        int smallerIndexToRemove = indexToStrike;
+                        while (smallerCounter < smallerIndexToRemove) {
+                            //1 2  5 6
+                            targets.remove(smallerIndexToRemove - 1);
+                            smallerIndexToRemove--;
+                            smallerCounter++;
+                        }
+                    } else {
+                        System.out.println("Strike missed!");
+                    }
+                    break;
+            }
+            input = scanner.nextLine();
+        }
+        for (int i = 0; i < targets.size(); i++) {
+            if (i != targets.size() - 1) {
+                System.out.printf("%d|", targets.get(i));
+            } else {
+                System.out.printf("%d", targets.get(i));
+            }
+    }
+
+    }
+
+}
+
