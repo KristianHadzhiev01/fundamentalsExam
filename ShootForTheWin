@@ -1,0 +1,57 @@
+package Exams;
+
+import java.util.Arrays;
+import java.util.Scanner;
+
+public class ShootForTheWin {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int[] targets = Arrays.stream(scanner.nextLine().split(" ")).mapToInt(Integer::parseInt).toArray();
+
+        String input = scanner.nextLine();
+
+        int targetCounter = 0;
+
+        while (!input.equals("End")) {
+
+            int currentTarget = 0;
+
+            int targetIndex = Integer.parseInt(input);
+
+            if (targetIndex <= targets.length - 1 && targetIndex >= 0) {
+
+                targetCounter++;
+
+                currentTarget = targets[targetIndex];
+
+                for (int i = 0; i < targets.length; i++) {
+
+                    targets[targetIndex] = -1;
+
+                    if (targets[i] != -1) {
+
+                        if (targets[i] > currentTarget) {
+
+                            targets[i] = targets[i] - currentTarget;
+
+                        } else if (targets[i] <= currentTarget) {
+
+                            targets[i] = targets[i] + currentTarget;
+                        }
+                    }
+
+                }
+            }
+
+            input = scanner.nextLine();
+        }
+
+        System.out.printf("Shot targets: %d -> ", targetCounter);
+
+
+        for (int i = 0; i < targets.length; i++) {
+
+            System.out.printf("%d ", targets[i]);
+        }
+    }
+}
