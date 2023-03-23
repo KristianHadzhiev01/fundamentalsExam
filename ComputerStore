@@ -1,0 +1,43 @@
+package Exams;
+
+import java.util.Scanner;
+
+public class ComputerStore {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        String input = scanner.nextLine();
+        double sum = 0;
+        boolean isValid = true;
+        while (true) {
+            if (input.equals("special") || input.equals("regular")) {
+                break;
+            }
+            double prices = Double.parseDouble(input);
+            if (prices <= 0) {
+                System.out.println("Invalid price!");
+                input = scanner.nextLine();
+                continue;
+            }
+            sum += prices;
+
+
+            input = scanner.nextLine();
+        }
+
+        double sumPlusTaxes = 0;
+        double sumOfTaxes = sum * 0.2;
+        sumPlusTaxes = sum + sumOfTaxes;
+        if (input.equals("special")) {
+            sumPlusTaxes = sumPlusTaxes - (sumPlusTaxes * 0.1);
+        }
+        if (sumOfTaxes == 0) {
+            System.out.println("Invalid order!");
+        } else {
+            System.out.printf("Congratulations you've just bought a new computer!\n" +
+                    "Price without taxes: %.2f$\n" +
+                    "Taxes: %.2f$\n" +
+                    "-----------\n" +
+                    "Total price: %.2f$", sum, sumOfTaxes, sumPlusTaxes);
+        }
+    }
+}
